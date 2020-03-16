@@ -1,0 +1,247 @@
+#:kivy 1.11.1
+#: import SlideTransition kivy.uix.screenmanager.SlideTransition
+#: import CardTransition kivy.uix.screenmanager.CardTransition
+# Root rule
+ScreenManagement:
+    transition: CardTransition()
+    MainScreen:
+    NavScreen:
+
+
+<MainScreen>:
+    name: 'main'
+    
+    NavFloatLayout:
+        id: 'nfl'
+        BoxLayout:
+            orientation: 'vertical'
+            background_color: 1,1,1,1
+            size_hint: (1,1)
+            BoxLayout:
+                orientation:'horizontal'
+                size_hint_y: None
+                height: '48dp'
+                padding: '5dp'
+
+                # canvas:
+                #     Color:
+                #         rgb: .3, .3, .3
+                #     Rectangle:
+                #         pos: self.pos
+                #         size: self.size
+
+                Label:
+                    id: asd
+                    # text: 'Bla'
+
+                Button:
+                    id: nav
+                    # text: 'Fuck me'
+                    background_color: 1, 1, 1,1
+                    background_normal: 'icon/1x.png'
+                    size_hint_x: None
+                    width: self.height
+                    on_touch_down: app.root.current = 'second'
+                    # on_touch_down: app.nav()
+            TLabel:
+                id: time
+                text: '04:58:00'
+                bold: True
+
+            Label:
+                id: weather
+                text: '71 C'
+
+            Label:
+                id: quote
+                text: 'Take care while driving'
+
+    # NavBoxLayout:
+    #     id: navbox
+    #     orientation: 'vertical'
+    #     size_hint: .3,1
+    #     pos_hint: {'right':1}
+    #     canvas:
+    #         Color:
+    #             rgb: .9, .9, .9
+    #         Rectangle:
+    #             pos: self.pos
+    #             size: self.size
+    #     UserBox:
+    #         orientation: 'vertical'
+    #         size_hint_y:.3
+    #         canvas:
+    #             Color:
+    #                 rgb: .3, .3, .3
+    #             Rectangle:
+    #                 pos: self.pos
+    #                 size: self.size
+    #         Image:
+    #             source: 'icon/user_36.png'
+
+    #         BoxLayout:
+    #             orientation: 'horizontal'
+    #             size_hint_y: .3
+    #             Label:
+    #                 # size_hint_x: .4
+    #                 text: 'User'
+    #                 font_size: 20
+    #             # Label:
+
+    #     SelectionBox:
+    #         orientation: 'vertical'
+    #         size_hint_y:.4
+    #         BoxLayout:
+    #             id: pref
+    #             orientation: 'horizontal'
+    #             on_touch_down: app.nav()
+    #             Image:
+    #                 size_hint_x: .5
+    #                 source: 'icon/setting_b_1x.png'
+    #             SLabel:
+    #                 text_size: self.size
+    #                 halign: 'left'
+    #                 valign: 'middle'
+    #                 text: 'Preference'
+                    
+    #             Label:
+    #         BoxLayout:
+    #             id: pow
+    #             orientation: 'horizontal'
+    #             on_touch_down: app.nav()
+    #             Image:
+    #                 size_hint_x: .5
+    #                 source: 'icon/power_b_1x.png'
+    #             SLabel:
+    #                 text_size: self.size
+    #                 halign: 'left'
+    #                 valign: 'middle'
+    #                 text: 'Power Off'
+    #             Label:
+    #         BoxLayout:
+    #             id: he
+    #             orientation: 'horizontal'
+    #             on_touch_down: app.nav()
+    #             Image:
+    #                 size_hint_x: .5
+    #                 source: 'icon/help_b_1x.png'
+    #             SLabel:
+    #                 text_size: self.size
+    #                 halign: 'left'
+    #                 valign: 'middle'
+    #                 text: 'Help'
+    #             Label:
+
+    #     # Blank
+    #     BoxLayout:
+    #         size_hint_y:.4
+    
+
+<NavScreen>:
+    name: 'second'
+    # FloatLayout:
+        # BoxLayout:
+        #     orientation:'vertical'
+        #     canvas:
+        #         Color:
+        #             rgb: .2, .2, .2
+        #         Rectangle:
+        #             pos: self.pos
+        #             size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: .3,1
+        pos_hint: {'right':1}
+        canvas:
+            Color:
+                rgb: .9, .9, .9
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        UserBox:
+            orientation: 'vertical'
+            size_hint_y:.3
+            canvas:
+                Color:
+                    rgb: .3, .3, .3
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Image:
+                source: 'icon/user_36.png'
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: .3
+                Label:
+                    # size_hint_x: .4
+                    text: 'User'
+                    font_size: 20
+                # Label:
+
+        SelectionBox:
+            orientation: 'vertical'
+            size_hint_y:.4
+            BoxLayout:
+                id: pref
+                orientation: 'horizontal'
+                # on_touch_down: app.nav()
+                Image:
+                    size_hint_x: .5
+                    source: 'icon/setting_b_1x.png'
+                SLabel:
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'middle'
+                    text: 'Preference'
+                    
+                Label:
+            BoxLayout:
+                id: pow
+                orientation: 'horizontal'
+                # on_touch_down: app.nav()
+                Image:
+                    size_hint_x: .5
+                    source: 'icon/power_b_1x.png'
+                SLabel:
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'middle'
+                    text: 'Power Off'
+                Label:
+            BoxLayout:
+                id: he
+                orientation: 'horizontal'
+                # on_touch_down: app.nav()
+                Image:
+                    size_hint_x: .5
+                    source: 'icon/help_b_1x.png'
+                SLabel:
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'middle'
+                    text: 'Help'
+                Label:
+
+        # Blank
+        BoxLayout:
+            size_hint_y:.4
+
+
+
+# class rule
+# for Main Screen
+<TLabel@Label>:
+    font_name: 'Roboto'
+    font_size: 90
+    markup: True
+
+# for Nav Screen
+<SelectionBox@BoxLayout>:
+
+<UserBox@BoxLayout>:
+
+<SLabel@Label>:
+    color: 0,0,0,1
+
+
