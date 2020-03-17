@@ -12,11 +12,9 @@ from kivy.garden.navigationdrawer import NavigationDrawer
 from datetime import datetime
 
 class NavFloatLayout(FloatLayout):
-    button = self.ids.nav
-    button.bind(on_touch = self.update)
-    def update(self):
-        self.add_widget(NavBoxLayout())
+    pass
 
+class Navigator(NavigationDrawer):
     pass
 
 class NavBoxLayout(BoxLayout):
@@ -33,10 +31,14 @@ class ScreenManagement(ScreenManager):
 
 class DashApp(App):
 
+    # navdrawer = NavigationDrawer()
+    # navdrawer.anim_type = 'slide_above_anim'
+    # navdrawer.add_widget(BoxLayout())
+
     def nav(self):
         # self.root.ids.navbox.pos_hint = {'right':1}
-        pass
-
+        # print(self.root.children[0].ids)
+        self.root.children[0].ids.nav.toggle_state()
 
     def update_time(self, nap):
         now = datetime.now() # get current time as datetime object
@@ -44,6 +46,7 @@ class DashApp(App):
 
     def on_start(self):
         # Clock.schedule_interval(self.update_time, 1)
+        
         pass
     
 
