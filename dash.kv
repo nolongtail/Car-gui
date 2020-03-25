@@ -15,49 +15,11 @@ ScreenManagement:
         anim_type : 'slide_above_simple'
     # FloatLayout:
         # id: 'nfl'
-        NavBoxLayout:
+        SidePanel:
             size_hint_x : .3
-        BoxLayout:
-            orientation: 'vertical'
-            background_color: 1,1,1,1
+        MainPanel:
             size_hint: (1,1)
-            BoxLayout:
-                orientation:'horizontal'
-                size_hint_y: None
-                height: '48dp'
-                padding: '5dp'
-
-                # canvas:
-                #     Color:
-                #         rgb: .3, .3, .3
-                #     Rectangle:
-                #         pos: self.pos
-                #         size: self.size
-
-                Label:
-                    id: sd
-                    # text: 'Bla'
-
-                Button:
-                    # text: 'Fuck me'
-                    background_color: 1, 1, 1,1
-                    background_normal: 'icon/1x.png'
-                    size_hint_x: None
-                    width: self.height
-                    # on_touch_down: app.root.current = 'second'
-                    on_touch_down: app.nav()
-            TLabel:
-                id: time
-                text: '04:58:00'
-                bold: True
-
-            Label:
-                id: weather
-                text: '71 C'
-
-            Label:
-                id: quote
-                text: 'Take care while driving'
+            
 
 <NavScreen>:
     name: 'second'
@@ -161,7 +123,7 @@ ScreenManagement:
     color: 0,0,0,1
 
 
-<NavBoxLayout>:
+<SidePanel@BoxLayout>:
     id: navbox
     orientation: 'vertical'
     # size_hint: .3,1
@@ -240,3 +202,44 @@ ScreenManagement:
     # Blank
     BoxLayout:
         size_hint_y:.4
+
+<MainPanel@BoxLayout>:
+    orientation: 'vertical'
+    background_color: 1,1,1,1
+    BoxLayout:
+        orientation:'horizontal'
+        size_hint_y: None
+        height: '48dp'
+        padding: '5dp'
+
+        # canvas:
+        #     Color:
+        #         rgb: .3, .3, .3
+        #     Rectangle:
+        #         pos: self.pos
+        #         size: self.size
+
+        Label:
+            id: sd
+            # text: 'Bla'
+
+        Button:
+            # text: 'Fuck me'
+            background_color: 1, 1, 1,1
+            background_normal: 'icon/1x.png'
+            size_hint_x: None
+            width: self.height
+            # on_touch_down: app.root.current = 'second'
+            on_touch_down: app.nav()
+    TLabel:
+        id: time
+        text: '04:58:00'
+        bold: True
+
+    Label:
+        id: weather
+        text: '71 C'
+
+    Label:
+        id: quote
+        text: 'Take care while driving'

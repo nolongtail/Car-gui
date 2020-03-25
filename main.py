@@ -17,8 +17,7 @@ class NavFloatLayout(FloatLayout):
 class Navigator(NavigationDrawer):
     pass
 
-class NavBoxLayout(BoxLayout):
-    pass
+
 
 class MainScreen(Screen):
     pass
