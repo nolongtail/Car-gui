@@ -219,18 +219,19 @@ ScreenManagement:
         #         pos: self.pos
         #         size: self.size
 
-        Label:
-            id: sd
-            # text: 'Bla'
-
         Button:
             # text: 'Fuck me'
             background_color: 1, 1, 1,1
-            background_normal: 'icon/1x.png'
+            background_normal: 'icon/menu_1x.png'
             size_hint_x: None
             width: self.height
             # on_touch_down: app.root.current = 'second'
             on_touch_down: app.nav()
+
+        Label:
+            id: sd
+            # text: 'Bla'
+        
     TLabel:
         id: time
         text: '04:58:00'
