@@ -39,11 +39,10 @@ class DashApp(App):
 
     def update_time(self, nap):
         now = datetime.now() # get current time as datetime object
-        self.root.ids.time.text = now.strftime('%H:%M:%S')
+        self.root.children[0].ids.time.text = now.strftime('%H:%M:%S')
 
     def on_start(self):
-        # Clock.schedule_interval(self.update_time, 1)
-        
+        Clock.schedule_interval(self.update_time, 1)
         pass
     
 
