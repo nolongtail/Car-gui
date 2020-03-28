@@ -7,7 +7,6 @@ ScreenManagement:
     MainScreen:
     NavScreen:
 
-
 <MainScreen>:
     name: 'main'
     Navigator:
@@ -20,7 +19,6 @@ ScreenManagement:
         MainPanel:
             size_hint: (1,1)
             
-
 <NavScreen>:
     name: 'second'
     
@@ -34,9 +32,7 @@ ScreenManagement:
     font_size: 90
     markup: True
 
-
-
-
+# Selection Label
 <SLabel@Label>:
     color: 0,0,0,1
     halign: 'left'
@@ -55,7 +51,7 @@ ScreenManagement:
         Rectangle:
             pos: self.pos
             size: self.size
-    #UserBox
+    #User Box
     BoxLayout:
         id: user
         orientation: 'vertical'
@@ -77,35 +73,57 @@ ScreenManagement:
                 text: 'User'
                 font_size: 20
             # Label:
-
+    # Selection Box
     StackLayout:
         orientation: 'tb-lr'
         # size_hint_y:.7
         BoxLayout:
-            id: pref
+            id: pref1
             orientation: 'horizontal'
             size_hint_y: None
             height: 60
             # on_touch_down: app.nav()
-            Image:
-                size_hint_x: None
-                width: self.height
-                source: 'icon/setting_b_1x.png'
+            # Image:
+            #     size_hint_x: None
+            #     width: self.height
+            #     source: 'icon/setting_b_1x.png'
             SLabel:
                 text: 'Preference1'
+                padding_x: 15
+            Switch:
+                id: switch
         BoxLayout:
-            id: pref
+            id: pref2
             orientation: 'horizontal'
             size_hint_y: None
             height: 60
             # on_touch_down: app.nav()
-            Image:
-                size_hint_x: None
-                width: self.height
-                source: 'icon/setting_b_1x.png'
+            # Image:
+            #     size_hint_x: None
+            #     width: self.height
+            #     source: 'icon/setting_b_1x.png'
             SLabel:
                 text: 'Preference2'
+                padding_x: 15
+            Switch:
+                id: switch
 
+        BoxLayout:
+            id: pref3
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 60
+            # on_touch_down: app.nav()
+            # Image:
+            #     size_hint_x: None
+            #     width: self.height
+            #     source: 'icon/setting_b_1x.png'
+            SLabel:
+                text: 'Preference3'
+                padding_x: 15
+            Switch:
+                id: switch
+                
         BoxLayout:
             id: pow
             orientation: 'horizontal'
