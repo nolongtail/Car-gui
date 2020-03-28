@@ -129,6 +129,7 @@ ScreenManagement:
             size_hint: (1,1)
             orientation: 'vertical'
             background_color: 1,1,1,1
+            # top bar
             BoxLayout:
                 orientation:'horizontal'
                 size_hint_y: None
@@ -143,7 +144,6 @@ ScreenManagement:
                 #         size: self.size
 
                 Button:
-                    # text: 'Fuck me'
                     background_color: 1, 1, 1,1
                     background_normal: 'icon/menu_2x.png'
                     size_hint_x: None
@@ -154,6 +154,9 @@ ScreenManagement:
                 Label:
                     id: sd
                     # text: 'Bla'
+                Button:
+                    text:'Trigger'
+                    on_touch_down: app.counter()
                 
             TLabel:
                 id: time

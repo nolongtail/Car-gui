@@ -1,5 +1,6 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
+from kivy.uix.label import Label
 from kivy.core.text import LabelBase
 from kivy.utils import get_color_from_hex
 from kivy.clock import Clock
@@ -15,7 +16,10 @@ from datetime import datetime
 class Navigator(NavigationDrawer):
     pass
 
-
+class Counter(Label):
+    id = 'count'
+    text = 'Counter'
+    font_size = 90
 
 class MainScreen(Screen):
     pass
@@ -27,7 +31,6 @@ class ScreenManagement(ScreenManager):
     pass
 
 class DashApp(App):
-
     # navdrawer = NavigationDrawer()
     # navdrawer.anim_type = 'slide_above_anim'
     # navdrawer.add_widget(BoxLayout())
@@ -37,11 +40,21 @@ class DashApp(App):
         # print(self.root.children[0].ids)
         self.root.children[0].ids.nav.toggle_state()
 
+    def counter(self):
+        if self.state is True:
+            self.root.children[0].ids.mainpanel.add_widget(self.wid,index=1)
+        else:
+            self.root.children[0].ids.mainpanel.remove_widget(self.wid)
+        self.state = not self.state
+
+    
     def update_time(self, nap):
         now = datetime.now() # get current time as datetime object
         self.root.children[0].ids.time.text = now.strftime('%H:%M:%S')
 
     def on_start(self):
+        self.state = True
+        self.wid = Counter()
         Clock.schedule_interval(self.update_time, 1)
         pass
     
