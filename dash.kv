@@ -35,7 +35,7 @@ ScreenManagement:
     markup: True
 
 # for Nav Screen
-<SelectionBox@BoxLayout>:
+<SelectionBox@StackLayout>:
     id: select
 
 <UserBox@BoxLayout>:
@@ -78,11 +78,13 @@ ScreenManagement:
             # Label:
 
     SelectionBox:
-        orientation: 'vertical'
-        size_hint_y:.4
+        orientation: 'tb-lr'
+        # size_hint_y:.7
         BoxLayout:
             id: pref
             orientation: 'horizontal'
+            size_hint_y: None
+            height: 50
             # on_touch_down: app.nav()
             Image:
                 size_hint_x: .5
@@ -97,6 +99,8 @@ ScreenManagement:
         BoxLayout:
             id: pow
             orientation: 'horizontal'
+            size_hint_y: None
+            height: 50
             # on_touch_down: app.nav()
             Image:
                 size_hint_x: .5
@@ -110,6 +114,8 @@ ScreenManagement:
         BoxLayout:
             id: he
             orientation: 'horizontal'
+            size_hint_y: None
+            height: 50
             # on_touch_down: app.nav()
             Image:
                 size_hint_x: .5
@@ -122,8 +128,8 @@ ScreenManagement:
             Label:
 
     # Blank
-    BoxLayout:
-        size_hint_y:.4
+    # BoxLayout:
+    #     size_hint_y:.4
 
 <MainPanel@BoxLayout>:
     orientation: 'vertical'
