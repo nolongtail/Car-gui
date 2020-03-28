@@ -11,8 +11,6 @@ from kivy.garden.navigationdrawer import NavigationDrawer
 
 from datetime import datetime
 
-class NavFloatLayout(FloatLayout):
-    pass
 
 class Navigator(NavigationDrawer):
     pass
