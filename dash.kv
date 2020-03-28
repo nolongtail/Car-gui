@@ -34,15 +34,14 @@ ScreenManagement:
     font_size: 90
     markup: True
 
-# for Nav Screen
-<SelectionBox@StackLayout>:
-    id: select
 
-<UserBox@BoxLayout>:
-    id : user
+
 
 <SLabel@Label>:
     color: 0,0,0,1
+    halign: 'left'
+    valign: 'middle'
+    text_size: self.size
 
 
 <SidePanel@BoxLayout>:
@@ -56,7 +55,9 @@ ScreenManagement:
         Rectangle:
             pos: self.pos
             size: self.size
-    UserBox:
+    #UserBox
+    BoxLayout:
+        id: user
         orientation: 'vertical'
         size_hint_y:.3
         canvas:
@@ -77,55 +78,60 @@ ScreenManagement:
                 font_size: 20
             # Label:
 
-    SelectionBox:
+    StackLayout:
         orientation: 'tb-lr'
         # size_hint_y:.7
         BoxLayout:
             id: pref
             orientation: 'horizontal'
             size_hint_y: None
-            height: 50
+            height: 60
             # on_touch_down: app.nav()
             Image:
-                size_hint_x: .5
+                size_hint_x: None
+                width: self.height
                 source: 'icon/setting_b_1x.png'
             SLabel:
-                text_size: self.size
-                halign: 'left'
-                valign: 'middle'
-                text: 'Preference'
-                
-            Label:
+                text: 'Preference1'
+        BoxLayout:
+            id: pref
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 60
+            # on_touch_down: app.nav()
+            Image:
+                size_hint_x: None
+                width: self.height
+                source: 'icon/setting_b_1x.png'
+            SLabel:
+                text: 'Preference2'
+
         BoxLayout:
             id: pow
             orientation: 'horizontal'
             size_hint_y: None
-            height: 50
+            height: 60
             # on_touch_down: app.nav()
             Image:
-                size_hint_x: .5
+                size_hint_x: None
+                width: self.height
                 source: 'icon/power_b_1x.png'
             SLabel:
-                text_size: self.size
-                halign: 'left'
-                valign: 'middle'
                 text: 'Power Off'
-            Label:
+            
         BoxLayout:
             id: he
             orientation: 'horizontal'
             size_hint_y: None
-            height: 50
+            height: 60
             # on_touch_down: app.nav()
             Image:
-                size_hint_x: .5
+                size_hint_x: None
+                width: self.height
                 source: 'icon/help_b_1x.png'
             SLabel:
-                text_size: self.size
-                halign: 'left'
-                valign: 'middle'
                 text: 'Help'
-            Label:
+
 
     # Blank
     # BoxLayout:
