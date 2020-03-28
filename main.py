@@ -43,8 +43,10 @@ class DashApp(App):
     def counter(self):
         if self.state is True:
             self.root.children[0].ids.mainpanel.add_widget(self.wid,index=1)
+            self.root.children[0].ids.time.font_size = 40
         else:
             self.root.children[0].ids.mainpanel.remove_widget(self.wid)
+            self.root.children[0].ids.time.font_size = 90
         self.state = not self.state
 
     
