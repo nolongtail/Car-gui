@@ -11,6 +11,7 @@ from kivy.uix.screenmanager import ScreenManager,Screen,SlideTransition
 from kivy.garden.navigationdrawer import NavigationDrawer
 from kivy.animation import Animation
 
+import serial
 from datetime import datetime
 
 
@@ -56,17 +57,27 @@ class DashApp(App):
             Clock.schedule_once(self.remove_counter,.5)
         animation.start(self.root.children[0].ids.time)
         self.state = not self.state
-
     
     def update_time(self, nap):
         now = datetime.now() # get current time as datetime object
         self.root.children[0].ids.time.text = now.strftime('%H:%M:%S')
 
+    def serial_read(self): # not yet complete
+        res = self.ser.read()
+        if res.decode() == 'r':
+            state = 'red'
+        elif res.decode() == 'g':
+            state = 'green'
+        return state
+
     def on_start(self):
+        #init
         self.state = True
         self.wid = Counter()
+        self.ser = serial.Serial(baudrate=115200,port='eth0')
+        self.ser.open()
         Clock.schedule_interval(self.update_time, 1)
-        pass
+        Clock.schedule_interval(self.serial_read, 1)
     
 
 if __name__ == '__main__':
