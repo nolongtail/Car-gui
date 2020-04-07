@@ -9,6 +9,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager,Screen,SlideTransition
 from kivy.garden.navigationdrawer import NavigationDrawer
+from kivy.animation import Animation
 
 from datetime import datetime
 
@@ -40,13 +41,20 @@ class DashApp(App):
         # print(self.root.children[0].ids)
         self.root.children[0].ids.nav.toggle_state()
 
+    def add_counter(self,dt):
+        self.root.children[0].ids.mainpanel.add_widget(self.wid,index=1)
+    
+    def remove_counter(self, dt):
+        self.root.children[0].ids.mainpanel.remove_widget(self.wid)
+
     def counter(self):
         if self.state is True:
-            self.root.children[0].ids.mainpanel.add_widget(self.wid,index=1)
-            self.root.children[0].ids.time.font_size = 40
+            animation = Animation(font_size =40, t='in_out_sine', duration= .5)
+            Clock.schedule_once(self.add_counter,.5)
         else:
-            self.root.children[0].ids.mainpanel.remove_widget(self.wid)
-            self.root.children[0].ids.time.font_size = 90
+            animation = Animation(font_size =90, t='in_out_sine', duration= .5)
+            Clock.schedule_once(self.remove_counter,.5)
+        animation.start(self.root.children[0].ids.time)
         self.state = not self.state
 
     
