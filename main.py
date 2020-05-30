@@ -63,10 +63,11 @@ class DashApp(App):
         self.root.children[0].ids.time.text = now.strftime('%H:%M:%S')
 
     def serial_read(self): # not yet complete
-        res = self.ser.read()
-        if res.decode() == 'r':
+        res = self.ser.read().decode()
+        # check res format
+        if res == 'r':
             state = 'red'
-        elif res.decode() == 'g':
+        elif res == 'g':
             state = 'green'
         return state
 
@@ -74,8 +75,13 @@ class DashApp(App):
         #init
         self.state = True
         self.wid = Counter()
-        self.ser = serial.Serial(baudrate=115200,port='eth0')
-        self.ser.open()
+        try:    
+            self.ser = serial.Serial(baudrate=115200,port='eth0')
+        except SerialException:
+            print('the port is not exist. exiting...')
+            exit(-1)
+        if self.ser.is_open() == False:
+            self.ser.open()
         Clock.schedule_interval(self.update_time, 1)
         Clock.schedule_interval(self.serial_read, 1)
     
