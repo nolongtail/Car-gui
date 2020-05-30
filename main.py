@@ -64,6 +64,8 @@ class DashApp(App):
 
     def serial_read(self): # not yet complete
         res = self.ser.read().decode()
+        # or this if u sending json 
+        # res = self.ser.read_until().decode()
         # check res format
         if res == 'r':
             state = 'red'
