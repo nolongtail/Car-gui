@@ -88,7 +88,7 @@ ScreenManagement:
                     orientation: 'horizontal'
                     size_hint_y: None
                     height: 60
-                    # on_touch_down: app.nav()
+                    on_touch_down: app.sleep()
                     Image:
                         size_hint_x: None
                         width: self.height
@@ -160,6 +160,9 @@ ScreenManagement:
             
 <NavScreen>:
     name: 'second'
+    Button:
+        text:'Power On'
+        on_touch_down: app.wake()
     
 
 # class rule

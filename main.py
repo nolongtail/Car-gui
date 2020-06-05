@@ -7,7 +7,7 @@ from kivy.clock import Clock
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.core.window import Window
-from kivy.uix.screenmanager import ScreenManager,Screen,SlideTransition
+from kivy.uix.screenmanager import ScreenManager,Screen
 from kivy.garden.navigationdrawer import NavigationDrawer
 from kivy.animation import Animation
 
@@ -41,6 +41,16 @@ class DashApp(App):
         # self.root.ids.navbox.pos_hint = {'right':1}
         # print(self.root.children[0].ids)
         self.root.children[0].ids.nav.toggle_state()
+
+    def sleep(self):
+        self.nav()
+        Clock.unschedule(self.curr_time)
+        self.root.current = 'second'
+
+    def wake(self):
+        self.root.current = 'main'
+        self.curr_time = Clock.schedule_interval(self.update_time, 1)
+        
 
     def add_counter(self,dt):
         self.root.children[0].ids.mainpanel.add_widget(self.wid,index=1)
@@ -76,7 +86,7 @@ class DashApp(App):
         self.wid = Counter()
         self.ser = serial.Serial(baudrate=115200,port='eth0')
         self.ser.open()
-        Clock.schedule_interval(self.update_time, 1)
+        self.curr_time = Clock.schedule_interval(self.update_time, 1)
         Clock.schedule_interval(self.serial_read, 1)
     
 
