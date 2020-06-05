@@ -67,7 +67,7 @@ class DashApp(App):
     def on_timeleft(self, event):
         '''handle the time left of the traffic light'''
         if self.connect == True:
-            self.wid.text = self.timeleft
+            self.wid.text = str(self.timeleft)
 
     def on_connect(self, obj, value):
         '''check if nodemcu is connected, and toggle Counter widget'''
@@ -96,8 +96,8 @@ class DashApp(App):
 
     def serial_read(self,dt):
         '''connection, state and time change is handled here'''
-        res = self.ser.read().decode()
-
+        res = self.ser.read()
+        res = res.decode()
         # TL not connected & counter is rendered
         if res == 'n' and self.connect == True:
             self.connect = not self.connect # True
