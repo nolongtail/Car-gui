@@ -10,6 +10,7 @@ from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager,Screen,SlideTransition
 from kivy.garden.navigationdrawer import NavigationDrawer
 from kivy.animation import Animation
+from kivy.properties import BooleanProperty, NumericProperty, StringProperty
 
 import serial
 from datetime import datetime
@@ -33,9 +34,11 @@ class ScreenManagement(ScreenManager):
     pass
 
 class DashApp(App):
-    # navdrawer = NavigationDrawer()
-    # navdrawer.anim_type = 'slide_above_anim'
-    # navdrawer.add_widget(BoxLayout())
+    '''Root Class'''
+    # property of traffic light counter
+    connect = BooleanProperty(False)
+    state = StringProperty('')
+    timeleft = NumericProperty(0)
 
     def nav(self):
         # self.root.ids.navbox.pos_hint = {'right':1}
@@ -48,34 +51,73 @@ class DashApp(App):
     def remove_counter(self, dt):
         self.root.children[0].ids.mainpanel.remove_widget(self.wid)
 
-    def counter(self):
-        if self.state is True:
+    def on_state(self, state):
+        # not yet complete
+        if state == 'red':
+            self.wid.color = (1,0,0,1)
+        else:
+            self.wid.color = (0,1,0,1)
+
+    def on_timeleft(self, event):
+        '''handle the time left of the traffic light'''
+        self.wid.text = timeleft
+        pass
+
+    def on_connect(self, obj, value):
+        '''check if nodemcu is connected, and toggle Counter widget'''
+        if self.connect is True:
             animation = Animation(font_size =40, t='in_out_sine', duration= .5)
             Clock.schedule_once(self.add_counter,.5)
         else:
             animation = Animation(font_size =90, t='in_out_sine', duration= .5)
             Clock.schedule_once(self.remove_counter,.5)
         animation.start(self.root.children[0].ids.time)
-        self.state = not self.state
-    
+
+    def decrement_counter(self,dt):
+        if self.timeleft > 0:
+            self.timeleft -= 1
+        else:
+            Clock.unschedule(self.timer)
+        
     def update_time(self, nap):
+        '''update clock current time'''
         now = datetime.now() # get current time as datetime object
         self.root.children[0].ids.time.text = now.strftime('%H:%M:%S')
 
-    def serial_read(self,dt): # not yet complete
+    def serial_read(self,dt):
+        '''connection, state and time change is handled here'''
         res = self.ser.read().decode()
-        # or this if u sending json 
-        # res = self.ser.read_until().decode()
-        # check res format
-        if res == 'r':
-            state = 'red'
-        elif res == 'g':
-            state = 'green'
-        return state
+
+        # TL not connected
+        if res == 'n' and self.connect == True:
+            self.connect = False
+        else: # connected
+            if self.connect == False:
+                self.connect = not self.connect # add widget
+            # handle state and trigger on_state
+            if res == 'r':
+                self.state = 'red'
+            elif res == 'g':
+                self.state = 'green'
+            elif res == 'y':
+                self.state = 'yellow'
+            elif res == 's':
+                self.state = 'standby'
+            else:
+                pass
+
+        # check time left
+        if self.timeleft == 0:
+            if res == 'r':
+                self.timeleft = 10
+            elif res == 'g':
+                self.timeleft = 10
+            elif res == 'y':
+                self.timeleft = 3
+            self.timer = Clock.schedule_interval(self.decrement_counter, 1)
 
     def on_start(self):
-        #init
-        self.state = True
+        # init Counter object
         self.wid = Counter()
         try:    
             self.ser = serial.Serial(baudrate=115200,port='/dev/ttyUSB0')
