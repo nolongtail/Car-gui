@@ -52,12 +52,17 @@ class DashApp(App):
         self.root.children[0].ids.mainpanel.remove_widget(self.wid)
 
     def on_state(self, state):
-        # not yet complete
         if self.connect == True:
             if state == 'red':
                 self.wid.color = (1,0,0,1)
-            else:
+            if state == 'yellow':
+                self.wid.color = (1,1,0,1)
+            if state == 'green':
                 self.wid.color = (0,1,0,1)
+            if state == 'standby':
+                self.wid.color = (1,0,0,1)
+            else:
+                self.wid.color = (1,1,1,1)
 
     def on_timeleft(self, event):
         '''handle the time left of the traffic light'''
@@ -113,13 +118,16 @@ class DashApp(App):
 
         # check time left
         if self.timeleft == 0:
-            if res == 'r':
-                self.timeleft = 10
-            elif res == 'g':
-                self.timeleft = 10
-            elif res == 'y':
-                self.timeleft = 3
-            self.timer = Clock.schedule_interval(self.decrement_counter, 1)
+            if res == 's':
+                self.wid.text = 'Waiting..'
+            else:
+                if res == 'r':
+                    self.timeleft = 10
+                elif res == 'g':
+                    self.timeleft = 10
+                elif res == 'y':
+                    self.timeleft = 3
+                self.timer = Clock.schedule_interval(self.decrement_counter, 1)
 
     def on_start(self):
         # init Counter object
@@ -132,7 +140,7 @@ class DashApp(App):
         if self.ser.is_open == False:
             self.ser.open()
         Clock.schedule_interval(self.update_time, 1)
-        Clock.schedule_interval(self.serial_read, 1)
+        Clock.schedule_interval(self.serial_read, .25)
     
 
 if __name__ == '__main__':
