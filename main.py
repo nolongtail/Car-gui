@@ -62,7 +62,7 @@ class DashApp(App):
         now = datetime.now() # get current time as datetime object
         self.root.children[0].ids.time.text = now.strftime('%H:%M:%S')
 
-    def serial_read(self): # not yet complete
+    def serial_read(self,dt): # not yet complete
         res = self.ser.read().decode()
         # or this if u sending json 
         # res = self.ser.read_until().decode()
@@ -78,11 +78,11 @@ class DashApp(App):
         self.state = True
         self.wid = Counter()
         try:    
-            self.ser = serial.Serial(baudrate=115200,port='eth0')
+            self.ser = serial.Serial(baudrate=115200,port='/dev/ttyUSB0')
         except SerialException:
             print('the port is not exist. exiting...')
             exit(-1)
-        if self.ser.is_open() == False:
+        if self.ser.is_open == False:
             self.ser.open()
         Clock.schedule_interval(self.update_time, 1)
         Clock.schedule_interval(self.serial_read, 1)
