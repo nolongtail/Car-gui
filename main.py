@@ -66,8 +66,8 @@ class DashApp(App):
 
     def on_timeleft(self, event):
         '''handle the time left of the traffic light'''
-        if self.connect = True:
-            self.wid.text = timeleft
+        if self.connect == True:
+            self.wid.text = self.timeleft
 
     def on_connect(self, obj, value):
         '''check if nodemcu is connected, and toggle Counter widget'''
@@ -116,25 +116,25 @@ class DashApp(App):
             else:
                 pass
 
-        # check time left
-        if self.timeleft == 0:
-            if res == 's':
-                self.wid.text = 'Waiting..'
-            else:
-                if res == 'r':
-                    self.timeleft = 10
-                elif res == 'g':
-                    self.timeleft = 10
-                elif res == 'y':
-                    self.timeleft = 3
-                self.timer = Clock.schedule_interval(self.decrement_counter, 1)
+            # check time left
+            if self.timeleft == 0:
+                if res == 's':
+                    self.wid.text = 'Waiting..'
+                else:
+                    if res == 'r':
+                        self.timeleft = 10
+                    elif res == 'g':
+                        self.timeleft = 10
+                    elif res == 'y':
+                        self.timeleft = 3
+                    self.timer = Clock.schedule_interval(self.decrement_counter, 1)
 
     def on_start(self):
         # init Counter object
         self.wid = Counter()
         try:    
             self.ser = serial.Serial(baudrate=115200,port='/dev/ttyUSB0')
-        except SerialException:
+        except serial.SerialException:
             print('the port is not exist. exiting...')
             exit(-1)
         if self.ser.is_open == False:
