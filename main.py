@@ -53,15 +53,16 @@ class DashApp(App):
 
     def on_state(self, state):
         # not yet complete
-        if state == 'red':
-            self.wid.color = (1,0,0,1)
-        else:
-            self.wid.color = (0,1,0,1)
+        if self.connect == True:
+            if state == 'red':
+                self.wid.color = (1,0,0,1)
+            else:
+                self.wid.color = (0,1,0,1)
 
     def on_timeleft(self, event):
         '''handle the time left of the traffic light'''
-        self.wid.text = timeleft
-        pass
+        if self.connect = True:
+            self.wid.text = timeleft
 
     def on_connect(self, obj, value):
         '''check if nodemcu is connected, and toggle Counter widget'''
@@ -74,10 +75,14 @@ class DashApp(App):
         animation.start(self.root.children[0].ids.time)
 
     def decrement_counter(self,dt):
-        if self.timeleft > 0:
-            self.timeleft -= 1
-        else:
-            Clock.unschedule(self.timer)
+        if self.connect == True:
+            if self.timeleft > 0:
+                self.timeleft -= 1
+            else:
+                try:
+                    Clock.unschedule(self.timer)
+                except:
+                    print('the timer event does not exist!')
         
     def update_time(self, nap):
         '''update clock current time'''
@@ -88,11 +93,11 @@ class DashApp(App):
         '''connection, state and time change is handled here'''
         res = self.ser.read().decode()
 
-        # TL not connected
+        # TL not connected & counter is rendered
         if res == 'n' and self.connect == True:
-            self.connect = False
+            self.connect = not self.connect # True
         else: # connected
-            if self.connect == False:
+            if self.connect == False: # not showing
                 self.connect = not self.connect # add widget
             # handle state and trigger on_state
             if res == 'r':
