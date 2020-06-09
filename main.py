@@ -77,16 +77,6 @@ class DashApp(App):
             Clock.schedule_once(self.remove_counter,.5)
         animation.start(self.root.children[0].ids.time)
 
-    def decrement_counter(self,dt):
-        if self.connect == True:
-            if self.timeleft > 0:
-                self.timeleft -= 1
-            else:
-                try:
-                    Clock.unschedule(self.timer)
-                except:
-                    print('the timer event does not exist!')
-        
     def update_time(self, nap):
         '''update clock current time'''
         now = datetime.now() # get current time as datetime object
@@ -95,37 +85,33 @@ class DashApp(App):
     def serial_read(self,dt):
         '''connection, state and time change is handled here'''
         res = self.ser.read()
-        res = res.decode()
+        res, tl = list(res.hex())
         # TL not connected & counter is rendered
-        if res == 'n' and self.connect == True:
+        if res == 'f' and self.connect == True:
             self.connect = not self.connect # True
         else: # connected
             if self.connect == False: # not showing
                 self.connect = not self.connect # add widget
             # handle state and trigger on_state
-            if res == 'r':
+            if res == '1':
                 self.state = 'red'
-            elif res == 'g':
+            elif res == '2':
                 self.state = 'green'
-            elif res == 'y':
+            elif res == '3':
                 self.state = 'yellow'
-            elif res == 's':
+            elif res == '4':
                 self.state = 'standby'
             else:
                 pass
 
             # check time left
             if self.timeleft == 0:
-                if res == 's':
+                if res == '4':
                     self.wid.text = 'Waiting..'
+                elif res == 'f':
+                    pass
                 else:
-                    if res == 'r':
-                        self.timeleft = 10
-                    elif res == 'g':
-                        self.timeleft = 10
-                    elif res == 'y':
-                        self.timeleft = 3
-                    self.timer = Clock.schedule_interval(self.decrement_counter, 1)
+                    self.timeleft = int(tl, base=16)
 
     def on_start(self):
         # init Counter object
