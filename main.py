@@ -20,9 +20,7 @@ class Navigator(NavigationDrawer):
     pass
 
 class Counter(Label):
-    id = 'count'
-    text = 'Counter'
-    font_size = 90
+    pass
 
 class MainScreen(Screen):
     pass
