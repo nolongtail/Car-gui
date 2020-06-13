@@ -49,7 +49,7 @@ class DashApp(App):
     def remove_counter(self, dt):
         self.root.children[0].ids.mainpanel.remove_widget(self.wid)
 
-    def on_state(self, state):
+    def on_state(self, obj, state):
         if self.connect == True:
             if state == 'red':
                 self.wid.color = (1,0,0,1)
@@ -62,10 +62,10 @@ class DashApp(App):
             else:
                 self.wid.color = (1,1,1,1)
 
-    def on_timeleft(self, event):
+    def on_timeleft(self, obj, value):
         '''handle the time left of the traffic light'''
         if self.connect == True:
-            self.wid.text = str(self.timeleft)
+            self.wid.text = str(value)
 
     def on_connect(self, obj, value):
         '''check if nodemcu is connected, and toggle Counter widget'''
