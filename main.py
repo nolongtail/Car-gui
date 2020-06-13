@@ -92,6 +92,8 @@ class DashApp(App):
         else: # connected
             if self.connect == False: # not showing
                 self.connect = not self.connect # add widget
+            # check time left
+            self.timeleft = int(tl, base=16)
             # handle state and trigger on_state
             if res == '1':
                 self.state = 'red'
@@ -101,17 +103,9 @@ class DashApp(App):
                 self.state = 'yellow'
             elif res == '4':
                 self.state = 'standby'
+                self.wid.text = 'Waiting..'
             else:
                 pass
-
-            # check time left
-            if self.timeleft == 0:
-                if res == '4':
-                    self.wid.text = 'Waiting..'
-                elif res == 'f':
-                    pass
-                else:
-                    self.timeleft = int(tl, base=16)
 
     def on_start(self):
         # init Counter object
