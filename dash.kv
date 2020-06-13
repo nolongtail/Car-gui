@@ -139,19 +139,20 @@ ScreenManagement:
                 Label:
                     id: sd
                     # text: 'Bla'
-                Button:
-                    text:'Trigger'
-                    on_touch_down: app.counter()
+                # Button:
+                #    text:'Trigger'
+                #    on_touch_down: app.counter()
             # Current time    
             TLabel:
                 id: time
                 text: '04:58:00'
                 bold: True
 
-            # Temperature
+            # Status
             Label:
-                id: weather
-                text: '71 C'
+                id: status
+                text: 'STATUS'
+                font_size: 40
                 
             # Quote
             Label:
@@ -178,3 +179,8 @@ ScreenManagement:
     halign: 'left'
     valign: 'middle'
     text_size: self.size
+
+<Counter>:
+    text: 'Counter'
+    font_size: 120
+    color: 1,1,1,1
