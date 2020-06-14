@@ -20,6 +20,7 @@ class Navigator(NavigationDrawer):
     pass
 
 class Counter(Label):
+    color = ListProperty((1, 1, 1, 1))
     pass
 
 class MainScreen(Screen):
@@ -127,7 +128,7 @@ class DashApp(App):
             exit(-1)
         if self.ser.is_open == False:
             self.ser.open()
-        Clock.schedule_interval(self.update_time, 1)
+        self.curr_time = Clock.schedule_interval(self.update_time, 1)
         Clock.schedule_interval(self.serial_read, .25)
     
 if __name__ == '__main__':
