@@ -11,6 +11,7 @@ from kivy.uix.screenmanager import ScreenManager,Screen
 from kivy.garden.navigationdrawer import NavigationDrawer
 from kivy.animation import Animation
 from kivy.properties import BooleanProperty, NumericProperty, StringProperty
+from kivy.uix.behaviors import ButtonBehavior
 
 import serial
 from datetime import datetime
@@ -29,6 +30,10 @@ class NavScreen(Screen):
     pass
 
 class ScreenManagement(ScreenManager):
+    pass
+
+class SelBox(ButtonBehavior, BoxLayout):
+    '''Selection BoxLayout with Button Behavior '''
     pass
 
 class DashApp(App):

@@ -3,7 +3,7 @@
 #: import CardTransition kivy.uix.screenmanager.CardTransition
 # Root rule
 ScreenManagement:
-    transition: CardTransition()
+    # transition: CardTransition()
     MainScreen:
     NavScreen:
 
@@ -45,7 +45,6 @@ ScreenManagement:
                         # size_hint_x: .4
                         text: 'User'
                         font_size: 20
-                    # Label:
             # Selection Box
             StackLayout:
                 id: selectbox
@@ -56,11 +55,6 @@ ScreenManagement:
                     orientation: 'horizontal'
                     size_hint_y: None
                     height: 60
-                    # on_touch_down: app.nav()
-                    # Image:
-                    #     size_hint_x: None
-                    #     width: self.height
-                    #     source: 'icon/setting_b_1x.png'
                     SLabel:
                         text: 'Alarm'
                         padding_x: 15
@@ -71,11 +65,6 @@ ScreenManagement:
                     orientation: 'horizontal'
                     size_hint_y: None
                     height: 60
-                    # on_touch_down: app.nav()
-                    # Image:
-                    #     size_hint_x: None
-                    #     width: self.height
-                    #     source: 'icon/setting_b_1x.png'
                     SLabel:
                         text: 'Enable auto platooning'
                         padding_x: 15
@@ -83,12 +72,12 @@ ScreenManagement:
                         id: switch
 
 
-                BoxLayout:
+                SelBox:
                     id: pow
                     orientation: 'horizontal'
                     size_hint_y: None
                     height: 60
-                    on_touch_down: app.sleep()
+                    on_press: app.sleep()
                     Image:
                         size_hint_x: None
                         width: self.height
@@ -96,12 +85,11 @@ ScreenManagement:
                     SLabel:
                         text: 'Power Off'
                     
-                BoxLayout:
+                SelBox:
                     id: he
                     orientation: 'horizontal'
                     size_hint_y: None
                     height: 60
-                    # on_touch_down: app.nav()
                     Image:
                         size_hint_x: None
                         width: self.height
@@ -133,12 +121,10 @@ ScreenManagement:
                     background_normal: 'icon/menu_2x.png'
                     size_hint_x: None
                     width: self.height
-                    # on_touch_down: app.root.current = 'second'
-                    on_touch_down: app.nav()
+                    on_press: app.nav()
 
                 Label:
                     id: sd
-                    # text: 'Bla'
                 # Button:
                 #    text:'Trigger'
                 #    on_touch_down: app.counter()
@@ -161,9 +147,10 @@ ScreenManagement:
             
 <NavScreen>:
     name: 'second'
-    Button:
-        text:'Power On'
-        on_touch_down: app.wake()
+    SelBox:
+        on_press: app.wake()
+        Label:
+            text:'Power On'
     
 
 # class rule
@@ -184,3 +171,8 @@ ScreenManagement:
     text: 'Counter'
     font_size: 120
     color: 1,1,1,1
+
+#Selection Box
+<SelBox>:
+
+
