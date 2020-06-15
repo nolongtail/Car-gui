@@ -74,7 +74,7 @@ ScreenManager:
                         Switch:
                             id: switch2
                     # Power Off Button
-                    SelBox:
+                    BoxLayout:
                         id: pow
                         orientation: 'horizontal'
                         size_hint_y: None
@@ -87,7 +87,7 @@ ScreenManager:
                         SLabel:
                             text: 'Power Off'
                     # Help Button
-                    SelBox:
+                    BoxLayout:
                         id: he
                         orientation: 'horizontal'
                         size_hint_y: None
@@ -141,7 +141,7 @@ ScreenManager:
     # NavScreen
     Screen:
         name: 'second'
-        SelBox:
+        BoxLayout:
             on_touch_down: app.wake(self,args[1])
             Label:
                 text:'Power On'
@@ -164,8 +164,5 @@ ScreenManager:
     text: app.timeleft
     font_size: 120
     color: app.state
-
-#Selection Box
-<SelBox>:
 
 

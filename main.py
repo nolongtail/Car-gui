@@ -20,10 +20,6 @@ COLOR = {'red': (1,0,0,1),
 class Counter(Label):
     pass
 
-class SelBox(ButtonBehavior, BoxLayout):
-    '''Selection BoxLayout with Button Behavior '''
-    pass
-
 class DashApp(App):
     '''Root Class'''
     # property of traffic light counter
