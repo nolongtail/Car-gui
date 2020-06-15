@@ -55,10 +55,10 @@ class DashApp(App):
         return False
 
     def add_counter(self,dt):
-        self.root.children[0].ids["mainpanel"].add_widget(self.wid,index=1)
+        self.root.ids['mainpanel'].add_widget(self.wid,index=1)
     
     def remove_counter(self, dt):
-        self.root.children[0].ids["mainpanel"].remove_widget(self.wid)
+        self.root.ids['mainpanel'].remove_widget(self.wid)
 
     def on_connect(self, obj, value):
         '''check if nodemcu is connected, and toggle Counter widget'''
@@ -68,7 +68,7 @@ class DashApp(App):
         else:
             animation = Animation(font_size =90, t='in_out_sine', duration= .5)
             Clock.schedule_once(self.remove_counter,.5)
-        animation.start(self.root.children[0].ids["time"])
+        animation.start(self.root.ids['time'])
 
     def update_time(self, nap):
         '''update clock current time'''
@@ -97,6 +97,7 @@ class DashApp(App):
                 self.state = COLOR['standby']
                 self.timeleft = 'Waiting..'
             else:
+                print('NodeMCU is initializing, exiting...')
                 exit(-2)
                 pass
 
@@ -106,7 +107,7 @@ class DashApp(App):
         try:    
             self.ser = serial.Serial(baudrate=115200,port='/dev/ttyUSB0')
         except serial.SerialException:
-            print('the port is not exist. exiting...')
+            print('the port does not exist. exiting...')
             exit(-1)
         if self.ser.is_open == False:
             self.ser.open()
