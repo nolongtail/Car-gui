@@ -20,7 +20,6 @@ class Navigator(NavigationDrawer):
     pass
 
 class Counter(Label):
-    color = ListProperty((1, 1, 1, 1))
     pass
 
 class MainScreen(Screen):
@@ -64,11 +63,11 @@ class DashApp(App):
         if self.connect == True:
             if state == 'red':
                 self.wid.color = (1,0,0,1)
-            if state == 'yellow':
+            elif state == 'yellow':
                 self.wid.color = (1,1,0,1)
-            if state == 'green':
+            elif state == 'green':
                 self.wid.color = (0,1,0,1)
-            if state == 'standby':
+            elif state == 'standby':
                 self.wid.color = (1,0,0,1)
             else:
                 self.wid.color = (1,1,1,1)
