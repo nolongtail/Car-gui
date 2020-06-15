@@ -97,8 +97,8 @@ class DashApp(App):
         res = self.ser.read()
         res, tl = list(res.hex())
         # TL not connected & counter is rendered
-        if res == 'f' and self.connect == True:
-            self.connect = not self.connect # True
+        if res == 'f':
+            self.connect = False
         else: # connected
             if self.connect == False: # not showing
                 self.connect = not self.connect # add widget
@@ -115,6 +115,7 @@ class DashApp(App):
                 self.state = 'standby'
                 self.wid.text = 'Waiting..'
             else:
+                exit(-2)
                 pass
 
     def on_start(self):
