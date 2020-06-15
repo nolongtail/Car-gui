@@ -1,160 +1,153 @@
 #:kivy 1.11.1
 #: import SlideTransition kivy.uix.screenmanager.SlideTransition
 #: import CardTransition kivy.uix.screenmanager.CardTransition
-# Root rule
-ScreenManagement:
-    # transition: CardTransition()
-    MainScreen:
-    NavScreen:
+#: import ScreenManager kivy.uix.screenmanager.ScreenManager
+#: import Screen kivy.uix.screenmanager.Screen
+#: import NavigationDrawer kivy.garden.navigationdrawer.NavigationDrawer
 
-<MainScreen>:
-    name: 'main'
-    Navigator:
-        id: nav
-        anim_type : 'slide_above_simple'
-        #SidePanel
-        BoxLayout:
-            id: sidepanel
-            orientation: 'vertical'
-            size_hint_x : .3
-            pos_hint: {'right':1}
-            canvas:
-                Color:
-                    rgb: .9, .9, .9
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-            #User Box
+# Root rule
+ScreenManager:
+    # transition: CardTransition()
+    # MainScreen
+    Screen:
+        name: 'main'
+        NavigationDrawer:
+            id: nav
+            anim_type : 'slide_above_simple'
+            #SidePanel
             BoxLayout:
-                id: userbox
+                id: sidepanel
                 orientation: 'vertical'
-                size_hint_y:.3
+                size_hint_x : .3
+                pos_hint: {'right':1}
                 canvas:
                     Color:
-                        rgb: .3, .3, .3
+                        rgb: .9, .9, .9
                     Rectangle:
                         pos: self.pos
                         size: self.size
-                Image:
-                    source: 'icon/user_36.png'
-
+                #User Box
                 BoxLayout:
-                    orientation: 'horizontal'
-                    size_hint_y: .3
-                    Label:
-                        # size_hint_x: .4
-                        text: 'User'
-                        font_size: 20
-            # Selection Box
-            StackLayout:
-                id: selectbox
-                orientation: 'tb-lr'
-                # size_hint_y:.7
-                BoxLayout:
-                    id: pref1
-                    orientation: 'horizontal'
-                    size_hint_y: None
-                    height: 60
-                    SLabel:
-                        text: 'Alarm'
-                        padding_x: 15
-                    Switch:
-                        id: switch
-                BoxLayout:
-                    id: pref2
-                    orientation: 'horizontal'
-                    size_hint_y: None
-                    height: 60
-                    SLabel:
-                        text: 'Enable auto platooning'
-                        padding_x: 15
-                    Switch:
-                        id: switch
-
-
-                SelBox:
-                    id: pow
-                    orientation: 'horizontal'
-                    size_hint_y: None
-                    height: 60
-                    on_press: app.sleep()
+                    id: userbox
+                    orientation: 'vertical'
+                    size_hint_y:.3
+                    canvas:
+                        Color:
+                            rgb: .3, .3, .3
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
                     Image:
-                        size_hint_x: None
-                        width: self.height
-                        source: 'icon/power_b_1x.png'
-                    SLabel:
-                        text: 'Power Off'
-                    
-                SelBox:
-                    id: he
-                    orientation: 'horizontal'
-                    size_hint_y: None
-                    height: 60
-                    Image:
-                        size_hint_x: None
-                        width: self.height
-                        source: 'icon/help_b_1x.png'
-                    SLabel:
-                        text: 'Help'
-        # MainPanel
-        BoxLayout:
-            id: mainpanel
-            size_hint: (1,1)
-            orientation: 'vertical'
-            background_color: 1,1,1,1
-            # top bar
+                        source: 'icon/user_36.png'
+
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint_y: .3
+                        Label:
+                            # size_hint_x: .4
+                            text: 'User'
+                            font_size: 20
+                # Selection Box
+                StackLayout:
+                    id: selectbox
+                    orientation: 'tb-lr'
+                    # Alarm Switch
+                    BoxLayout:
+                        id: pref1
+                        orientation: 'horizontal'
+                        size_hint_y: None
+                        height: 60
+                        SLabel:
+                            text: 'Alarm'
+                            padding_x: 15
+                        Switch:
+                            id: switch1
+                    # Auto platooning Switch
+                    BoxLayout:
+                        id: pref2
+                        orientation: 'horizontal'
+                        size_hint_y: None
+                        height: 60
+                        SLabel:
+                            text: 'Enable auto platooning'
+                            padding_x: 15
+                        Switch:
+                            id: switch2
+                    # Power Off Button
+                    SelBox:
+                        id: pow
+                        orientation: 'horizontal'
+                        size_hint_y: None
+                        height: 60
+                        on_touch_down: app.sleep(self, args[1], nav)
+                        Image:
+                            size_hint_x: None
+                            width: self.height
+                            source: 'icon/power_b_1x.png'
+                        SLabel:
+                            text: 'Power Off'
+                    # Help Button
+                    SelBox:
+                        id: he
+                        orientation: 'horizontal'
+                        size_hint_y: None
+                        height: 60
+                        Image:
+                            size_hint_x: None
+                            width: self.height
+                            source: 'icon/help_b_1x.png'
+                        SLabel:
+                            text: 'Help'
+            # MainPanel
             BoxLayout:
-                orientation:'horizontal'
-                size_hint_y: None
-                height: '56dp'
-                padding: '10dp'
+                id: mainpanel
+                size_hint: (1,1)
+                orientation: 'vertical'
+                background_color: 1,1,1,1
+                # top bar
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint_y: None
+                    height: '56dp'
+                    padding: '10dp'
+                    Button:
+                        background_color: 1, 1, 1,1
+                        background_normal: 'icon/menu_2x.png'
+                        size_hint_x: None
+                        width: self.height
+                        on_touch_down: app.nav(self,args[1],nav)
 
-                # canvas:
-                #     Color:
-                #         rgb: .3, .3, .3
-                #     Rectangle:
-                #         pos: self.pos
-                #         size: self.size
+                    Label:
+                        id: sd
+                    # Button:
+                    #    text:'Trigger'
+                    #    on_touch_down: app.counter()
+                # Current time    
+                TLabel:
+                    id: time
+                    text: app.timenow
+                    bold: True
 
-                Button:
-                    background_color: 1, 1, 1,1
-                    background_normal: 'icon/menu_2x.png'
-                    size_hint_x: None
-                    width: self.height
-                    on_press: app.nav()
-
+                # Status
                 Label:
-                    id: sd
-                # Button:
-                #    text:'Trigger'
-                #    on_touch_down: app.counter()
-            # Current time    
-            TLabel:
-                id: time
-                text: '04:58:00'
-                bold: True
-
-            # Status
+                    id: status
+                    text: 'STATUS'
+                    font_size: 40
+                    
+                # Quote
+                Label:
+                    id: quote
+                    text: 'Take care while driving'
+    # NavScreen
+    Screen:
+        name: 'second'
+        SelBox:
+            on_touch_down: app.wake(self,args[1])
             Label:
-                id: status
-                text: 'STATUS'
-                font_size: 40
-                
-            # Quote
-            Label:
-                id: quote
-                text: 'Take care while driving'
+                text:'Power On'
             
-<NavScreen>:
-    name: 'second'
-    SelBox:
-        on_press: app.wake()
-        Label:
-            text:'Power On'
-    
 
 # class rule
-# for Main Screen
 <TLabel@Label>:
     font_name: 'Roboto'
     font_size: 90
@@ -168,9 +161,9 @@ ScreenManagement:
     text_size: self.size
 
 <Counter>:
-    text: 'Counter'
+    text: app.timeleft
     font_size: 120
-    color: 1,1,1,1
+    color: app.state
 
 #Selection Box
 <SelBox>:
